@@ -1,0 +1,4 @@
+tweepy==4.10.0
+boto3>=1.24.70
+beautifulsoup4==4.11.1 # for scraping proxies and user agents
+fake-useragent==1.1.1 # for scraping proxies and user agents
