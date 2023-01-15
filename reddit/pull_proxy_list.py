@@ -54,6 +54,10 @@ class PullFreshProxyList:
         """
         return random.randint(0, len(self.proxies) - 1)
     
+    def new_proxy_value(self):
+        new_proxy_value = self.proxies[self.pullRandomProxy()]
+        return new_proxy_value
+    
 # if __name__ == "__main__":
 #     proxy_instance_obj =  PullFreshProxyList()
 #     proxy_obj = proxy_instance_obj.proxySteps()    

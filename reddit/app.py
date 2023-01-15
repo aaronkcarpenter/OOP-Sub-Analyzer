@@ -4,6 +4,7 @@ import auth_reddit
 import request_subreddit_info
 import get_keys_to_scrape
 import scrape_additional_pages
+import scrape_additional_page_v2
 import write_filenames_to_text_file
 
 class Scraper:
@@ -21,17 +22,55 @@ class Scraper:
     subreddit_scraper_instance = request_subreddit_info.SubredditScraper()
     get_after_keys_obj = get_keys_to_scrape.PullAllAfterKeys()
     additional_page_scraper_instance = scrape_additional_pages.AdditionalPageScraper()
+    additional_page_scraper_instance_two = scrape_additional_page_v2.SubRedditScraperAfter()
     write_filenames_to_text_file_instance = write_filenames_to_text_file.WriteFilesToCSV()
     def redditScraper(self):
+        """
+        We first get the proxies to use that allows us to avoid being rate limited, we then
+        all create a user agen object to disguise where we are working from. Once we have
+        the proxy and user agent, we pass both into the function that runs to authorize our
+        reddit account, getRedditAuth.
+        
+        Once we've been authenticated, we can make requests to the reddit api with the authenticated
+        url, once again passing in a proxy value and a user agent.
+        """
         try:
             proxy_value = self.proxy_instance.proxySteps() 
+        except Exception as e:
+            print(f'There was an error in proxy step {e}')
+        try:
             user_agent = self.user_agent_object.random_user_agent()
+        except Exception as e:
+            print(f'There was an error in user agent class {e}')
+        try:
             reddit_authentication_url = self.authenticate_reddit_instance.getRedditAuth(proxy_value, user_agent)
+        except Exception as e:
+            print(f'There was an error in reddit auth class {e}')
+        try:
             requestsToAPI = self.subreddit_scraper_instance.makeRequestsToAPI(reddit_authentication_url, proxy_value, user_agent)
+            try:
+                
+                after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+                scrape_the_rest = self.additional_page_scraper_instance_two.scrape_after_first_100(reddit_authentication_url, proxy_value, user_agent, after_key_dict)
+            except Exception as e:
+                print(f'There was an error in reddit requests additional pages scraper class {e}')
+                
+        except Exception as e:
+            print(f'There was an error in reddit requests scraper class {e}')
+        try:
             after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+        except Exception as e:
+            print(f'There was an error in main {e}')
+        try:
             additional_page_scraper = self.additional_page_scraper_instance.scrapeAdditionalPages(reddit_authentication_url, proxy_value, after_key_dict, user_agent)
+        except Exception as e:
+            print(f'There was an error in main {e}')
+        try:
             write_to_csv = self.write_filenames_to_text_file_instance.writeFileNamesToTextFile()
-            # awsCreds = connectAndUpload()
+        except Exception as e:
+            print(f'There was an error in main {e}')
+        try:
+            awsCreds = connectAndUpload()
         except Exception as e:
             print(f'There was an error in main {e}')
         

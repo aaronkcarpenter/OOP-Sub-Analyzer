@@ -30,13 +30,17 @@ class PullAllAfterKeys:
                 new_after_key = res['data']['after']
                 params_get['after'] = new_after_key
                 
+                # if new_after_key not in afterKeysDict and afterKeysDict[pageNum - 1] != new_after_key:
                 if new_after_key not in afterKeysDict:
                     afterKeysDict[pageNum] = new_after_key
                     pageNum += 1
+                else:
+                    continue
                 
                 if requestsMade % 4 == 0:
                     # proxy_value_obj_new_key_instance = pull_proxy_list.PullFreshProxyList()
-                    proxy_value = self.proxy_value_obj.proxySteps()
+                    # proxy_idx = self.proxy_value_obj.new()
+                    proxy_value = self.proxy_value_obj.new_proxy_value()
                 requestsMade += 1
             return afterKeysDict
         except Exception as e:
