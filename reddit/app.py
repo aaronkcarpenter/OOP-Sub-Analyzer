@@ -49,30 +49,28 @@ class Scraper:
         try:
             requestsToAPI = self.subreddit_scraper_instance.makeRequestsToAPI(reddit_authentication_url, proxy_value, user_agent)
             try:
-                
-                after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
-                scrape_the_rest = self.additional_page_scraper_instance_two.scrape_after_first_100(reddit_authentication_url, proxy_value, user_agent, after_key_dict)
+                # after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+                scrape_the_rest = self.additional_page_scraper_instance_two.scrape_after_first_100(reddit_authentication_url, proxy_value, user_agent, requestsToAPI)
             except Exception as e:
-                print(f'There was an error in reddit requests additional pages scraper class {e}')
-                
+                print(f'There was an error in reddit requests additional pages scraper class {e}') 
         except Exception as e:
             print(f'There was an error in reddit requests scraper class {e}')
-        try:
-            after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
-        except Exception as e:
-            print(f'There was an error in main {e}')
-        try:
-            additional_page_scraper = self.additional_page_scraper_instance.scrapeAdditionalPages(reddit_authentication_url, proxy_value, after_key_dict, user_agent)
-        except Exception as e:
-            print(f'There was an error in main {e}')
-        try:
-            write_to_csv = self.write_filenames_to_text_file_instance.writeFileNamesToTextFile()
-        except Exception as e:
-            print(f'There was an error in main {e}')
-        try:
-            awsCreds = connectAndUpload()
-        except Exception as e:
-            print(f'There was an error in main {e}')
+        # try:
+        #     after_key_dict = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+        # except Exception as e:
+        #     print(f'There was an error in main {e}')
+        # try:
+        #     additional_page_scraper = self.additional_page_scraper_instance.scrapeAdditionalPages(reddit_authentication_url, proxy_value, after_key_dict, user_agent)
+        # except Exception as e:
+        #     print(f'There was an error in main {e}')
+        # try:
+        #     write_to_csv = self.write_filenames_to_text_file_instance.writeFileNamesToTextFile()
+        # except Exception as e:
+        #     print(f'There was an error in main {e}')
+        # try:
+        #     awsCreds = connectAndUpload()
+        # except Exception as e:
+        #     print(f'There was an error in main {e}')
         
 if __name__ == '__main__':
     scraper_instance = Scraper()

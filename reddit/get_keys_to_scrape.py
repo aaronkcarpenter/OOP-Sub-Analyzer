@@ -9,7 +9,7 @@ class PullAllAfterKeys:
     # new_user_agent = user_agent_object.random_user_agent()
     proxy_value_obj = pull_proxy_list.PullFreshProxyList()
     # proxy_value = proxy_value_obj.proxySteps()
-    params_get = { 'limit': 100 }
+    # params_get = { 'limit': 100 }
      
     def getAllAfterKeys(self, reddit_authentication_url, proxy_value, user_agent):
         """
@@ -20,17 +20,16 @@ class PullAllAfterKeys:
         """
         try:
             new_after_key = ''
-            params_get = { 'limit': 1, 'after': '' }
+            params_get = { 'limit': 100, 'after': '' }
             afterKeysDict = {}
             requestsMade = 0
             pageNum = 2
             while new_after_key != None and requestsMade < 50:
-                req = requests.get(reddit_authentication_url, headers=user_agent, params=self.params_get, proxies=proxy_value)
+                req = requests.get(reddit_authentication_url, headers=user_agent, params=params_get, proxies=proxy_value)
                 res = req.json()
                 new_after_key = res['data']['after']
                 params_get['after'] = new_after_key
                 
-                # if new_after_key not in afterKeysDict and afterKeysDict[pageNum - 1] != new_after_key:
                 if new_after_key not in afterKeysDict:
                     afterKeysDict[pageNum] = new_after_key
                     pageNum += 1
@@ -42,6 +41,7 @@ class PullAllAfterKeys:
                     # proxy_idx = self.proxy_value_obj.new()
                     proxy_value = self.proxy_value_obj.new_proxy_value()
                 requestsMade += 1
+            print(afterKeysDict)
             return afterKeysDict
         except Exception as e:
             print(f'An error Occurred While Attaining All After Keys --> {e} Line Number: {str(traceback.extract_stack()[-1][1])}')

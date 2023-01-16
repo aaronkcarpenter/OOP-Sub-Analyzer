@@ -30,8 +30,8 @@ class SubredditScraper:
     # filename_to_csv_instance = write_filenames_to_text_file.WriteFilesToCSV()
     # write_to_csv = filename_to_csv_instance.writeFileNamesToTextFile()
     
-    # subreddit = 'BlackPeopleTwitter'
-    subreddit = 'JaydaWayda'
+    subreddit = 'BlackPeopleTwitter'
+    # subreddit = 'JaydaWayda'
     # subreddit = 'ZsTittyTreats'
     # subreddit = 'HipHopGoneWild'
     limit = 100
@@ -143,13 +143,11 @@ class SubredditScraper:
                     
                     if postVideoURL in currentMedia:
                         postMediaType = 'mp4'
-                        # fileBeingSaved = f'{self.redditVideoDirectory}/reddit_Video_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         fileBeingSaved = f'{self.path}/reddit_Video_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         fileName = f'reddit_Video_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         reqPicFileName.append(fileName)
                     elif postImageURL in currentMedia or galleryURL in currentMedia:
                         postMediaType = 'jpg'
-                        # fileBeingSaved = f'{self.redditImgDirectory}/reddit_Image_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         fileBeingSaved = f'{self.path}/reddit_Image_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         fileName = f'reddit_Image_{self.subreddit}_{mediaCounter}.{postMediaType}'
                         reqPicFileName.append(fileName)
@@ -163,10 +161,8 @@ class SubredditScraper:
                     with open(os.path.join(self.path, fileBeingSaved), 'wb') as f:
                         f.write(reqPicData)
                         
-                    # with open(f'{fileBeingSaved}', 'wb') as f:
-                    #     f.write(reqPicData)
                     mediaCounter += 1
-                    print(f'Which file was saved? {fileBeingSaved}')
+                    print(f'Which file was saved? {fileBeingSaved} {self.params_get}')
                 else:
                     continue
                 
@@ -177,7 +173,8 @@ class SubredditScraper:
                 print('End of First Page Scrape, 1st scrape uploading, media saved, Get the After keys Now...')
                 
             if len(after_key) != 0:
-                self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+                after_keys_to_continue = self.get_after_keys_obj.getAllAfterKeys(reddit_authentication_url, proxy_value, user_agent)
+                return after_keys_to_continue
                 
             print(f'How Many Saved Images Thus Far? {len(listOfImageFiles)}')
             print(len(posts))
