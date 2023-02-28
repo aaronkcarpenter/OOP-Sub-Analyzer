@@ -27,7 +27,7 @@ class AdditionalPageScraper:
     # filename_to_csv_instance = write_filenames_to_text_file.WriteFilesToCSV()
     # write_to_csv = filename_to_csv_instance.writeFileNamesToTextFile()
     
-    subreddit = 'BlackPeopleTwitter'
+    subreddit = 'Beaches'
     limit = 100
     timeframe = 'all'
     listing = 'year'

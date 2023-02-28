@@ -17,10 +17,9 @@ class SubRedditScraperAfter:
     
     now = datetime.now()
     media_saving_instance = add_saved_media.AddMedia()
-    subreddit = 'BlackPeopleTwitter'
+    subreddit = 'BeachInspo'
     limit = 100
     timeframe = 'all'
-    # listing = 'top'
     listing = 'year'
     params_get = { 'limit': 100 }
     baseUrl = f'/r/{subreddit}/{listing}?t={timeframe}'

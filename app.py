@@ -58,8 +58,8 @@ def create_media_tweet():
     try:
         # Tweet a new tweet
         # tweet = 'After my first Muay Thai training session I said fuck it and just went and got a glock.'
-        media_tweet = client.media_upload('popeyes_biscuit.jpg')
-        tweet = 'Yall a nigga was ALMOST on a shirt. Just had a @popeyes biscuit.'
+        media_tweet = client.media_upload('beachview.jpg')
+        tweet = 'Favorite Place In The World.'
         update_status = client.update_status(status=tweet, media_ids=[media_tweet.media_id])
         print('Tweet with Image Successfully Sent')
     except:

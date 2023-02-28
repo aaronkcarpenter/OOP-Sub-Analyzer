@@ -30,13 +30,9 @@ class SubredditScraper:
     # filename_to_csv_instance = write_filenames_to_text_file.WriteFilesToCSV()
     # write_to_csv = filename_to_csv_instance.writeFileNamesToTextFile()
     
-    subreddit = 'BlackPeopleTwitter'
-    # subreddit = 'JaydaWayda'
-    # subreddit = 'ZsTittyTreats'
-    # subreddit = 'HipHopGoneWild'
+    subreddit = 'Beaches'
     limit = 100
     timeframe = 'all'
-    # listing = 'top'
     listing = 'year'
     params_get = { 'limit': 100 }
     baseUrl = f'/r/{subreddit}/{listing}?t={timeframe}'

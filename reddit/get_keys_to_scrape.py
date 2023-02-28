@@ -37,8 +37,6 @@ class PullAllAfterKeys:
                     continue
                 
                 if requestsMade % 4 == 0:
-                    # proxy_value_obj_new_key_instance = pull_proxy_list.PullFreshProxyList()
-                    # proxy_idx = self.proxy_value_obj.new()
                     proxy_value = self.proxy_value_obj.new_proxy_value()
                 requestsMade += 1
             print(afterKeysDict)
